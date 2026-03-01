@@ -1,7 +1,8 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
-import { Home, Users, BarChart3, FileText, Menu, X, Moon, Sun, LogOut } from "lucide-react";
+import { Home, Users, BarChart3, FileText, Lock, Menu, X, Moon, Sun, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
@@ -81,7 +82,7 @@ export function AdminSidebar() {
         {/* Menu Items */}
         <nav className="flex-1 p-4 space-y-2 pt-24 lg:pt-4">
           {menuItems.map((item, idx) => {
-            const Icon = item.icon;
+            const Icon = item.icon as React.ComponentType<any>;
             return (
               <motion.div
                 key={idx}
