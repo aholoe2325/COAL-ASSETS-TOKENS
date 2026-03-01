@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Home, Users, BarChart3, FileText, Lock, Menu, X, Moon, Sun, LogOut } from "lucide-react";
+import { Home, Users, BarChart3, FileText, Menu, X, Moon, Sun, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
@@ -78,33 +78,8 @@ export function AdminSidebar() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
       >
-        {/* Logo */}
-        <div className={`p-4 border-b sticky top-0 z-40 ${
-          isDark ? "border-cat-gold/20" : "border-gray-300"
-        }`}>
-          <motion.div
-            className="flex items-center gap-3 flex-row"
-            animate={{
-              boxShadow: ["0 0 0 0 rgba(212, 175, 55, 0.4)", "0 0 0 8px rgba(212, 175, 55, 0)"],
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cat-gold to-cat-emerald flex items-center justify-center">
-              <Lock className="text-white" size={20} />
-            </div>
-            <div className="flex items-center gap-2">
-              <h1 className={`text-lg font-bold ${
-                isDark ? "text-cat-gold" : "text-amber-600"
-              }`}>ADMIN</h1>
-              <p className={`text-xs hidden sm:block ${
-                isDark ? "text-gray-400" : "text-gray-600"
-              }`}>Control Panel</p>
-            </div>
-          </motion.div>
-        </div>
-
         {/* Menu Items */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-2 pt-24 lg:pt-4">
           {menuItems.map((item, idx) => {
             const Icon = item.icon;
             return (
