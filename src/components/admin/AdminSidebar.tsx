@@ -51,7 +51,7 @@ export function AdminSidebar() {
 
   const handleLogout = () => {
     setIsOpen(false);
-    router.push("/");
+    router.push("/dashboard");
   };
 
   return (
