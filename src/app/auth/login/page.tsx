@@ -3,16 +3,18 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { getCachedMediaUrl } from "@/utils/mediaCache";
 
 export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [videoUrl, setVideoUrl] = useState<string>("");
 
   const handleLogin = () => {
     // Validation simple
@@ -23,6 +25,10 @@ export default function LoginPage() {
     // Redirection vers dashboard après login
     router.push("/dashboard");
   };
+
+  useEffect(() => {
+    getCachedMediaUrl("https://image2url.com/r2/default/videos/1772281224772-ad822feb-a7cc-4c7e-85da-97cce89f4226.mp4").then(setVideoUrl);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -36,15 +42,18 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-amber-50 to-gray-100 dark:bg-gradient-to-br dark:from-cat-dark dark:via-cat-charcoal/80 dark:to-cat-charcoal flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background video */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover opacity-30 dark:opacity-20"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src="https://image2url.com/r2/default/videos/1772281224772-ad822feb-a7cc-4c7e-85da-97cce89f4226.mp4" type="video/mp4" />
-      </video>
+      {videoUrl && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-30 dark:opacity-20"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+      )}
 
       {/* Animated background gradient overlay */}
       <div className="absolute inset-0 opacity-60 dark:opacity-80 animate-pulse">

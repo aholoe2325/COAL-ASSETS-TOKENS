@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Home, Users, BarChart3, FileText, Lock, Menu, X, Moon, Sun, LogOut } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
@@ -13,7 +12,7 @@ export function AdminSidebar() {
   const { isDark, toggleTheme } = useTheme();
   const handleNavigation = (href: string) => {
     setIsOpen(false);
-    setTimeout(() => router.push(href), 200);
+    router.push(href);
   };
 
   const menuItems = [
@@ -50,6 +49,7 @@ export function AdminSidebar() {
   ];
 
   const handleLogout = () => {
+    setIsOpen(false);
     router.push("/");
   };
 
@@ -114,10 +114,10 @@ export function AdminSidebar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.05 }}
               >
-                <Link
-                  href={item.href}
+                <button
+                  type="button"
                   onClick={() => handleNavigation(item.href)}
-                  className={`flex items-center justify-between px-4 py-3 rounded-lg border border-transparent transition-all group ${
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg border border-transparent transition-all group ${
                     isDark
                       ? "hover:bg-cat-gold/10 hover:border-cat-gold/30"
                       : "hover:bg-amber-50 hover:border-amber-600/30"
@@ -146,7 +146,7 @@ export function AdminSidebar() {
                       {item.badge}
                     </span>
                   )}
-                </Link>
+                </button>
               </motion.div>
             );
           })}
@@ -183,7 +183,10 @@ export function AdminSidebar() {
 
           {/* Logout */}
           <motion.button
-            onClick={handleLogout}
+            onClick={() => {
+              setIsOpen(false);
+              handleLogout();
+            }}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition-all"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

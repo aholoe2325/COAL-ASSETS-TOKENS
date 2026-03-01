@@ -4,9 +4,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getCachedMediaUrl } from "@/utils/mediaCache";
 
 export function HeroSection() {
   const router = useRouter();
+  const [videoUrl, setVideoUrl] = useState<string>("");
+
+  useEffect(() => {
+    getCachedMediaUrl("https://image2url.com/r2/default/videos/1772281224772-ad822feb-a7cc-4c7e-85da-97cce89f4226.mp4").then(setVideoUrl);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -31,15 +38,18 @@ export function HeroSection() {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-amber-50 to-gray-100 dark:bg-gradient-to-br dark:from-cat-dark dark:via-cat-charcoal/80 dark:to-cat-charcoal">
       {/* Background video */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover opacity-40 dark:opacity-30"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src="https://image2url.com/r2/default/videos/1772281224772-ad822feb-a7cc-4c7e-85da-97cce89f4226.mp4" type="video/mp4" />
-      </video>
+      {videoUrl && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-40 dark:opacity-30"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+      )}
 
       {/* Animated background gradient overlay - more visible */}
       <div className="absolute inset-0 opacity-60 dark:opacity-80 animate-pulse">

@@ -2,8 +2,17 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { getCachedMediaUrl, cleanupOldCache } from "@/utils/mediaCache";
 
 export function StatusBanner() {
+  const [videoUrl, setVideoUrl] = useState<string>("");
+
+  useEffect(() => {
+    const videoSrc = "https://image2url.com/r2/default/videos/1772287448943-3c6f34b9-36c3-4529-9c99-38c79ca3ad9f.mp4";
+    getCachedMediaUrl(videoSrc).then(setVideoUrl);
+    cleanupOldCache();
+  }, []);
 
   return (
     <motion.div
@@ -13,18 +22,18 @@ export function StatusBanner() {
       transition={{ duration: 0.6 }}
     >
       {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source
-          src="https://image2url.com/r2/default/videos/1772287448943-3c6f34b9-36c3-4529-9c99-38c79ca3ad9f.mp4"
-          type="video/mp4"
-        />
-      </video>
+      {videoUrl && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          preload="auto"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+      )}
 
       {/* Dark Overlay - Always dark for consistent brand look */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
