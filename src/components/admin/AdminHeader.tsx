@@ -58,41 +58,66 @@ export function AdminHeader() {
         </motion.div>
 
         {/* Search */}
-        <motion.div className="hidden md:flex items-center">
-          {searchOpen ? (
-            <input
-              type="text"
-              placeholder="Search users, reports..."
-              className={`px-4 py-2 rounded-lg border text-sm focus:outline-none transition-colors ${
-                isDark
-                  ? "bg-cat-gold/10 border-cat-gold/30 text-cat-text focus:border-cat-gold"
-                  : "bg-amber-50 border-amber-600/30 text-gray-900 focus:border-amber-600"
-              }`}
-              autoFocus
-            />
-          ) : (
+        <div className="relative flex items-center">
+          {/* Desktop / Tablet inline search */}
+          <div className="hidden md:flex items-center">
+            {searchOpen ? (
+              <input
+                type="text"
+                placeholder="Search users, reports..."
+                className={`px-4 py-2 rounded-lg border text-sm focus:outline-none transition-colors ${
+                  isDark
+                    ? "bg-cat-gold/10 border-cat-gold/30 text-cat-text focus:border-cat-gold"
+                    : "bg-amber-50 border-amber-600/30 text-gray-900 focus:border-amber-600"
+                }`}
+                autoFocus
+              />
+            ) : (
+              <button
+                onClick={() => setSearchOpen(true)}
+                className={`p-2 rounded-lg transition-smooth ${
+                  isDark ? "hover:bg-cat-gold/10" : "hover:bg-amber-50"
+                }`}
+              >
+                <Search className={isDark ? "text-cat-gold" : "text-amber-600"} size={20} />
+              </button>
+            )}
+          </div>
+
+          {/* Mobile: icon toggles overlay input */}
+          <div className="md:hidden flex items-center">
             <button
-              onClick={() => setSearchOpen(true)}
-              className={`p-2 rounded-lg transition-smooth ${
-                isDark
-                  ? "hover:bg-cat-gold/10"
-                  : "hover:bg-amber-50"
-              }`}
-            >
+              onClick={() => setSearchOpen(!searchOpen)}
+              className={`p-2 rounded-lg transition-smooth ${isDark ? "hover:bg-cat-gold/10" : "hover:bg-amber-50"}`}>
               <Search className={isDark ? "text-cat-gold" : "text-amber-600"} size={20} />
             </button>
+          </div>
+
+          {/* Mobile overlay input (below header) */}
+          {searchOpen && (
+            <div className="absolute left-4 right-4 top-full mt-2 md:hidden z-50">
+              <input
+                type="text"
+                placeholder="Search users, reports..."
+                className={`w-full px-4 py-2 rounded-lg border text-sm focus:outline-none transition-colors ${
+                  isDark
+                    ? "bg-cat-gold/10 border-cat-gold/30 text-cat-text focus:border-cat-gold"
+                    : "bg-white border-gray-300 text-gray-900 focus:border-amber-600"
+                }`}
+                autoFocus
+                onBlur={() => setSearchOpen(false)}
+              />
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Right Section */}
       <div className="flex items-center gap-4">
-        {/* System Time */}
-        <div className={`hidden sm:flex items-center gap-2 text-xs ${
-          isDark ? "text-gray-400" : "text-gray-600"
-        }`}>
+        {/* System Time (visible on all sizes) */}
+        <div className={`flex items-center gap-2 text-xs ${isDark ? "text-gray-400" : "text-gray-600"}`}>
           <Clock size={16} className={isDark ? "text-cat-gold" : "text-amber-600"} />
-          <span>{currentTime}</span>
+          <span className="text-sm">{currentTime}</span>
         </div>
 
         {/* Notifications */}
