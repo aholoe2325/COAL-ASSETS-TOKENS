@@ -66,7 +66,7 @@ export function AdminSidebar() {
 
       {/* Sidebar */}
       <motion.aside
-        className={`fixed right-0 top-0 h-screen w-64 ${
+        className={`fixed right-0 top-20 h-[calc(100vh-80px)] w-64 ${
           isDark
             ? "bg-gradient-to-b from-cat-charcoal to-cat-dark"
             : "bg-white"
@@ -80,7 +80,7 @@ export function AdminSidebar() {
         transition={{ duration: 0.3 }}
       >
         {/* Menu Items */}
-        <nav className="flex-1 p-4 space-y-2 pt-24 lg:pt-4">
+        <nav className="flex-1 p-4 space-y-2">
           {menuItems.map((item, idx) => {
             const Icon = item.icon as React.ComponentType<any>;
             return (
