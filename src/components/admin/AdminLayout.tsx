@@ -22,7 +22,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Main Content */}
       <motion.main
-        className="lg:mr-64 p-6 min-h-screen pt-24 lg:pt-6"
+        className="lg:ml-64 p-6 min-h-screen pt-24 lg:pt-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

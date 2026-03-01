@@ -59,23 +59,23 @@ export function AdminSidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-lg bg-white dark:bg-cat-charcoal border border-gray-300 dark:border-cat-gold/30 text-gray-900 dark:text-cat-gold"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white dark:bg-cat-charcoal border border-gray-300 dark:border-cat-gold/30 text-gray-900 dark:text-cat-gold"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {/* Sidebar */}
       <motion.aside
-        className={`fixed right-0 top-20 h-[calc(100vh-80px)] w-64 ${
+        className={`fixed left-0 top-20 h-[calc(100vh-80px)] w-64 ${
           isDark
             ? "bg-gradient-to-b from-cat-charcoal to-cat-dark"
             : "bg-white"
-        } border-l ${
+        } border-r ${
           isDark ? "border-cat-gold/20" : "border-gray-300"
         } z-40 flex flex-col overflow-y-auto ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+          isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 transition-transform duration-300`}
-        initial={{ opacity: 0, x: 20 }}
+        initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
       >
@@ -86,7 +86,7 @@ export function AdminSidebar() {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.05 }}
               >

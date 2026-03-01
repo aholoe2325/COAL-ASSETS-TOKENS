@@ -31,7 +31,7 @@ export function AdminHeader() {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 lg:right-64 h-20 ${
+      className={`fixed top-0 left-0 right-0 lg:left-64 h-20 ${
         isDark
           ? "bg-gradient-to-r from-cat-charcoal to-cat-dark"
           : "bg-white"
